@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Internet Speed Test</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gauge.js/1.3.7/gauge.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Internet Speed Test</h1>
+            <p class="subtitle">Test your connection speed with our lightweight tool</p>
+        </header>
+
+        <div class="settings-panel">
+            <h2>Test Settings</h2>
+            <div class="settings-form">
+                <div class="form-group">
+                    <label for="server">Server:</label>
+                    <input type="text" id="server" value="google.com">
+                </div>
+                <div class="form-group">
+                    <label for="port">Port:</label>
+                    <input type="number" id="port" value="80">
+                </div>
+                <div class="form-group">
+                    <label for="file-size">File Size (MB):</label>
+                    <input type="number" id="file-size" value="10" min="1" max="100" step="1">
+                </div>
+                <div class="form-group">
+                    <button id="run-test" class="btn primary">Run Speed Test</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="results-panel">
+            <div class="tab-container">
+                <div class="tabs">
+                    <button class="tab-button active" data-tab="current-results">Current Results</button>
+                    <button class="tab-button" data-tab="history">History</button>
+                </div>
+
+                <div id="current-results" class="tab-content active">
+                    <div id="no-results-message">
+                        <p>No test results to display.</p>
+                        <p>Click 'Run Speed Test' to begin.</p>
+                    </div>
+
+                    <div id="test-progress" style="display: none;">
+                        <h3>Running test...</h3>
+                        <div class="progress-container">
+                            <div id="progress-bar" class="progress-bar"></div>
+                        </div>
+                        <p id="progress-status">Preparing test...</p>
+                    </div>
+
+                    <div id="test-results" style="display: none;">
+                        <div class="gauges-container">
+                            <div class="gauge-box">
+                                <h3>Ping</h3>
+                                <div class="gauge-container">
+                                    <canvas id="ping-gauge"></canvas>
+                                </div>
+                                <div class="gauge-value" id="ping-value">-- ms</div>
+                            </div>
+
+                            <div class="gauge-box">
+                                <h3>Download</h3>
+                                <div class="gauge-container">
+                                    <canvas id="download-gauge"></canvas>
+                                </div>
+                                <div class="gauge-value" id="download-value">-- Mbps</div>
+                            </div>
+
+                            <div class="gauge-box">
+                                <h3>Upload</h3>
+                                <div class="gauge-container">
+                                    <canvas id="upload-gauge"></canvas>
+                                </div>
+                                <div class="gauge-value" id="upload-value">-- Mbps</div>
+                            </div>
+                        </div>
+
+                        <div class="results-details">
+                            <div class="detail-item">
+                                <span class="detail-label">Test Time:</span>
+                                <span class="detail-value" id="test-timestamp">--</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Server:</span>
+                                <span class="detail-value" id="test-server">--</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="history" class="tab-content">
+                    <div class="chart-container">
+                        <canvas id="history-chart"></canvas>
+                    </div>
+                    <div id="no-history-message">
+                        <p>No history data available.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2025 Internet Speed Test | Built with Python and JavaScript</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

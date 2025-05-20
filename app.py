@@ -10,8 +10,6 @@ import urllib.request
 from datetime import datetime
 import json
 import os
-from werkzeug.urls import quote
-url_quote = quote  
 
 app = Flask(__name__)
 

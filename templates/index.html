@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Internet Speed Test</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h2 class="text-center mb-0">Internet Speed Test</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-4">
+                            <div class="col">
+                                <label for="serverInput" class="form-label">Server:</label>
+                                <input type="text" class="form-control" id="serverInput" value="google.com">
+                            </div>
+                            <div class="col">
+                                <label for="portInput" class="form-label">Port:</label>
+                                <input type="number" class="form-control" id="portInput" value="80">
+                            </div>
+                            <div class="col">
+                                <label for="fileSizeInput" class="form-label">File Size (MB):</label>
+                                <input type="number" class="form-control" id="fileSizeInput" value="10" min="1" max="100">
+                            </div>
+                        </div>
+                        
+                        <div class="d-grid gap-2">
+                            <button id="runAllBtn" class="btn btn-primary">Run Complete Speed Test</button>
+                            <div class="btn-group mt-2" role="group">
+                                <button id="pingBtn" class="btn btn-outline-primary">Test Ping</button>
+                                <button id="downloadBtn" class="btn btn-outline-primary">Test Download</button>
+                                <button id="uploadBtn" class="btn btn-outline-primary">Test Upload</button>
+                                <button id="historyBtn" class="btn btn-outline-secondary">View History</button>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4">
+                            <div class="alert alert-info d-none" id="testingAlert">
+                                <div class="d-flex align-items-center">
+                                    <div class="spinner-border spinner-border-sm me-2" role="status"></div>
+                                    <span>Running tests, please wait...</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Results Section -->
+                        <div class="mt-4 d-none" id="resultsSection">
+                            <h4>Test Results</h4>
+                            <div class="row text-center">
+                                <div class="col-md-4">
+                                    <div class="card mb-3">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Ping</h5>
+                                            <p class="display-4" id="pingResult">-</p>
+                                            <p class="text-muted">ms</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card mb-3">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Download</h5>
+                                            <p class="display-4" id="downloadResult">-</p>
+                                            <p class="text-muted">Mbps</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card mb-3">
+                                        <div class="card-body">
+                                            <h5 class="card-title">Upload</h5>
+                                            <p class="display-4" id="uploadResult">-</p>
+                                            <p class="text-muted">Mbps</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion" id="resultsAccordion">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#pingDetails">
+                                            Ping Details
+                                        </button>
+                                    </h2>
+                                    <div id="pingDetails" class="accordion-collapse collapse" data-bs-parent="#resultsAccordion">
+                                        <div class="accordion-body" id="pingDetailsContent">
+                                            <!-- Ping details will be inserted here -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#downloadDetails">
+                                            Download Details
+                                        </button>
+                                    </h2>
+                                    <div id="downloadDetails" class="accordion-collapse collapse" data-bs-parent="#resultsAccordion">
+                                        <div class="accordion-body" id="downloadDetailsContent">
+                                            <!-- Download details will be inserted here -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#uploadDetails">
+                                            Upload Details
+                                        </button>
+                                    </h2>
+                                    <div id="uploadDetails" class="accordion-collapse collapse" data-bs-parent="#resultsAccordion">
+                                        <div class="accordion-body" id="uploadDetailsContent">
+                                            <!-- Upload details will be inserted here -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- History Section -->
+                        <div class="mt-4 d-none" id="historySection">
+                            <h4>Test History</h4>
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Date & Time</th>
+                                            <th>Ping (ms)</th>
+                                            <th>Download (Mbps)</th>
+                                            <th>Upload (Mbps)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="historyTableBody">
+                                        <!-- History entries will be inserted here -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

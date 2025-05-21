@@ -85,7 +85,7 @@ class InternetSpeedTester:
     def measure_download_speed(self):
         """Measure download speed."""
         # Use a public file for download testing
-        url = "http://ipv4.download.thinkbroadband.com/10MB.zip"
+        url = "http://download.thinkbroadband.com/10MB.zip"
         
         try:
             start_time = time.time()
